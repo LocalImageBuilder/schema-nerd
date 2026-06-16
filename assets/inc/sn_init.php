@@ -12,17 +12,6 @@ function schema_nerd_debug_log( $message ) {
 	error_log( $message );
 }
 
-function schema_nerd_get_github_token() {
-	return (string) apply_filters( 'schema_nerd_github_token', get_option( 'schema_nerd_github_token', '' ) );
-}
-
-function schema_nerd_clear_github_release_cache() {
-	$owner = (string) apply_filters( 'schema_nerd_github_owner', 'LocalImageBuilder' );
-	$repo  = (string) apply_filters( 'schema_nerd_github_repo', 'schema-nerd' );
-
-	delete_transient( 'schema_nerd_github_release_' . md5( $owner . '/' . $repo ) );
-}
-
 function schema_nerd_get_api_base_url() {
     return untrailingslashit( preg_replace( '#/wp-json/.*$#', '', SN_API_URL ) );
 }

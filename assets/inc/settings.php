@@ -113,15 +113,17 @@ function schema_nerd_settings_display() {
 
     $tabs = array( 'settings' => 'Settings' );
 
-
-
     foreach ( $tab_files as $file ) {
+        $tab_name = basename( $file, '.php' );
 
-        $tab_name           = basename( $file, '.php' );
+        if ( 'advanced' === $tab_name ) {
+            continue;
+        }
 
         $tabs[ $tab_name ] = ucfirst( $tab_name );
-
     }
+
+    $tabs['advanced'] = 'Advanced';
 
 
     // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only admin tab navigation.
@@ -241,6 +243,20 @@ function schema_nerd_settings_display() {
 
                 submit_button();
 
+            } elseif ( $current_tab === 'advanced' ) {
+
+                settings_fields( 'schema_nerd_settings_group' );
+
+                $tab_file = $tabs_dir . 'advanced.php';
+
+                if ( file_exists( $tab_file ) ) {
+                    include $tab_file;
+                }
+
+                do_settings_sections( 'schema-nerd-advanced' );
+
+                submit_button();
+
             } else {
 
                 $tab_file = $tabs_dir . $current_tab . '.php';
@@ -341,22 +357,6 @@ function schema_nerd_sanitize_api_key( $value ) {
 
 
 
-function schema_nerd_sanitize_github_token( $value ) {
-    $value = sanitize_text_field( $value );
-
-    if ( strpos( $value, '*' ) !== false ) {
-        return get_option( 'schema_nerd_github_token', '' );
-    }
-
-    if ( $value !== get_option( 'schema_nerd_github_token', '' ) ) {
-        schema_nerd_clear_github_release_cache();
-    }
-
-    return $value;
-}
-
-
-
 function schema_nerd_register_settings() {
 
     register_setting(
@@ -395,12 +395,6 @@ function schema_nerd_register_settings() {
         )
     );
 
-    register_setting(
-        'schema_nerd_settings_group',
-        'schema_nerd_github_token',
-        array( 'sanitize_callback' => 'schema_nerd_sanitize_github_token' )
-    );
-
     add_settings_section(
 
         'schema_nerd_settings_section',
@@ -429,27 +423,19 @@ function schema_nerd_register_settings() {
 
     );
 
+    add_settings_section(
+        'schema_nerd_advanced_section',
+        'Shortcode output',
+        'schema_nerd_advanced_section_callback',
+        'schema-nerd-advanced'
+    );
+
     add_settings_field(
         'schema_nerd_hide_location_title',
-        'Shortcode output',
+        'Location name',
         'schema_nerd_hide_location_title_callback',
-        'schema-nerd',
-        'schema_nerd_settings_section'
-    );
-
-    add_settings_section(
-        'schema_nerd_updates_section',
-        'Plugin updates',
-        'schema_nerd_updates_section_callback',
-        'schema-nerd'
-    );
-
-    add_settings_field(
-        'schema_nerd_github_token',
-        'GitHub update token',
-        'schema_nerd_github_token_callback',
-        'schema-nerd',
-        'schema_nerd_updates_section'
+        'schema-nerd-advanced',
+        'schema_nerd_advanced_section'
     );
 
 }
@@ -460,6 +446,10 @@ add_action( 'admin_init', 'schema_nerd_register_settings' );
 
 function schema_nerd_settings_section_callback() {
     echo '<p>Connect this site to your Schema Nerd organization on schemanerd.app.</p>';
+}
+
+function schema_nerd_advanced_section_callback() {
+    echo '<p>' . esc_html__( 'Default behavior for shortcodes and the admin shortcode builder.', 'schema-nerd' ) . '</p>';
 }
 
 function schema_nerd_api_key_callback() {
@@ -500,24 +490,5 @@ function schema_nerd_hide_location_title_callback() {
     </label>
     <p class="description"><?php esc_html_e( 'Applies to per-location shortcodes, the shortcode builder, and all-locations lists. Widgets and blocks have their own setting.', 'schema-nerd' ); ?></p>
     <?php
-}
-
-function schema_nerd_updates_section_callback() {
-    echo '<p>' . esc_html__( 'Enable automatic updates from the private GitHub repository.', 'schema-nerd' ) . '</p>';
-}
-
-function schema_nerd_github_token_callback() {
-    $github_token = schema_nerd_get_github_token();
-
-    if ( empty( $github_token ) ) {
-        echo '<input style="min-width:50%;" type="password" name="schema_nerd_github_token" value="" placeholder="' . esc_attr__( 'Enter GitHub token', 'schema-nerd' ) . '" class="regular-text" autocomplete="off" />';
-    } else {
-        $masked_token = str_repeat( '*', max( 0, strlen( $github_token ) - 4 ) ) . substr( $github_token, -4 );
-        echo '<input style="min-width:50%;" type="password" name="schema_nerd_github_token" value="' . esc_attr( $masked_token ) . '" placeholder="' . esc_attr__( 'Enter GitHub token', 'schema-nerd' ) . '" class="regular-text" autocomplete="off" />';
-    }
-
-    echo '<p class="description">';
-    esc_html_e( 'Use a GitHub personal access token with Contents read access to LocalImageBuilder/schema-nerd. Required for one-click updates from Dashboard → Updates.', 'schema-nerd' );
-    echo '</p>';
 }
 
