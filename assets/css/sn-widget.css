@@ -1,0 +1,195 @@
+.schema-nerd-widget-location-builder .schema-nerd-shortcode-builder,
+.schema-nerd-block-location-builder .schema-nerd-shortcode-builder {
+
+    margin: 0;
+
+}
+
+.schema-nerd-location-builder-title {
+    margin: 0 0 0.75em;
+    font-size: 1.1em;
+}
+
+
+
+.schema-nerd-shortcode-builder-controls {
+
+    margin-bottom: 1em;
+
+}
+
+
+
+.schema-nerd-shortcode-builder-label {
+
+    display: block;
+
+    font-weight: 600;
+
+    margin-bottom: 0.35em;
+
+}
+
+
+
+.schema-nerd-location-select {
+
+    width: 100%;
+
+    max-width: 100%;
+
+    margin-bottom: 0.75em;
+
+}
+
+
+
+.schema-nerd-shortcode-builder .schema-nerd-field-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5em;
+}
+
+.schema-nerd-shortcode-builder .schema-nerd-field-buttons .button.schema-nerd-field-button {
+    background: #f0f0f1;
+    border: 1px solid #c3c4c7;
+    color: #1d2327;
+    box-shadow: none;
+}
+
+.schema-nerd-shortcode-builder .schema-nerd-field-buttons .button.schema-nerd-field-button:not(:disabled):hover {
+    background: #f6f7f7;
+    border-color: #2271b1;
+    color: #2271b1;
+}
+
+.schema-nerd-shortcode-builder .schema-nerd-field-buttons .button.schema-nerd-field-button.is-active,
+.schema-nerd-shortcode-builder .schema-nerd-field-buttons .button.schema-nerd-field-button.is-active:hover,
+.schema-nerd-shortcode-builder .schema-nerd-field-buttons .button.schema-nerd-field-button.is-active:focus {
+    background: #2271b1 !important;
+    border-color: #135e96 !important;
+    color: #fff !important;
+    font-weight: 600;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 0 0 1px #135e96 !important;
+    outline: 2px solid #72aee6;
+    outline-offset: 1px;
+}
+
+.schema-nerd-field-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5em;
+}
+
+.schema-nerd-field-button:not(:disabled):hover {
+    border-color: #2271b1;
+    color: #2271b1;
+}
+
+.schema-nerd-field-button.is-active,
+.schema-nerd-field-button.is-active:hover {
+    background: #2271b1;
+    border-color: #135e96;
+    color: #fff;
+    font-weight: 600;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+
+
+.schema-nerd-shortcode-copy {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    align-items: center;
+
+    gap: 0.5em;
+
+    margin-bottom: 0.75em;
+
+}
+
+
+
+.schema-nerd-shortcode-tag {
+
+    display: inline-block;
+
+    padding: 0.35em 0.5em;
+
+    background: #f6f7f7;
+
+    border: 1px solid #dcdcde;
+
+    border-radius: 3px;
+
+    word-break: break-all;
+
+}
+
+
+
+.schema-nerd-shortcode-preview-label {
+
+    display: block;
+
+    font-size: 0.85em;
+
+    font-weight: 600;
+
+    margin-bottom: 0.35em;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.03em;
+
+}
+
+
+
+.schema-nerd-builder-preview-content {
+
+    padding: 0.75em;
+
+    border: 1px solid #dcdcde;
+
+    border-radius: 3px;
+
+    background: #fff;
+
+}
+
+
+
+.schema-nerd-loading,
+
+.schema-nerd-error,
+
+.schema-nerd-no-preview {
+
+    margin: 0;
+
+    font-style: italic;
+
+}
+
+
+
+.schema-nerd-error {
+
+    color: #b32d2e;
+
+}
+
+
+
+.schema-nerd-copy-shortcode.is-copied {
+
+    border-color: #00a32a;
+
+    color: #00a32a;
+
+}
+

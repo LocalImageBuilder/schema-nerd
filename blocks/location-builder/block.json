@@ -1,0 +1,45 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "schema-nerd/location-builder",
+    "version": "1.0.0",
+    "title": "Schema Nerd Location Builder",
+    "category": "widgets",
+    "icon": "location-alt",
+    "description": "Pick a location and field to display schema data from your organization.",
+    "keywords": ["schema", "location", "phone", "address", "hours", "email"],
+    "textdomain": "sn",
+    "attributes": {
+        "title": {
+            "type": "string",
+            "default": ""
+        },
+        "showBuilder": {
+            "type": "boolean",
+            "default": true
+        },
+        "showShortcode": {
+            "type": "boolean",
+            "default": false
+        },
+        "location": {
+            "type": "string",
+            "default": "0"
+        },
+        "field": {
+            "type": "string",
+            "default": "phone"
+        },
+        "hideLocationTitle": {
+            "type": "boolean",
+            "default": false
+        }
+    },
+    "supports": {
+        "html": false,
+        "align": ["wide", "full"]
+    },
+    "editorScript": "schema-nerd-block-location-builder-editor",
+    "editorStyle": "sn-widget",
+    "style": "sn-widget"
+}

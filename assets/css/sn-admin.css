@@ -1,0 +1,525 @@
+.schema-nerd-shortcode-builder {
+
+    margin: 1.5rem 0 2rem;
+
+    padding: 1.25rem;
+
+    background: #fff;
+
+    border: 1px solid #dcdcde;
+
+    border-radius: 4px;
+
+}
+
+
+
+.schema-nerd-shortcode-builder-controls {
+
+    display: grid;
+
+    gap: 1rem;
+
+    margin-bottom: 1rem;
+
+}
+
+
+
+.schema-nerd-shortcode-builder-controls label {
+
+    display: block;
+
+    margin-bottom: 0.35rem;
+
+    font-weight: 600;
+
+}
+
+
+
+.schema-nerd-location-select {
+
+    min-width: min(100%, 420px);
+
+}
+
+
+
+.schema-nerd-shortcode-builder .schema-nerd-field-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.schema-nerd-shortcode-builder .schema-nerd-field-buttons .button.schema-nerd-field-button {
+    background: #f0f0f1;
+    border: 1px solid #c3c4c7;
+    color: #1d2327;
+    box-shadow: none;
+}
+
+.schema-nerd-shortcode-builder .schema-nerd-field-buttons .button.schema-nerd-field-button:not(:disabled):hover {
+    background: #f6f7f7;
+    border-color: #2271b1;
+    color: #2271b1;
+}
+
+.schema-nerd-shortcode-builder .schema-nerd-field-buttons .button.schema-nerd-field-button.is-active,
+.schema-nerd-shortcode-builder .schema-nerd-field-buttons .button.schema-nerd-field-button.is-active:hover,
+.schema-nerd-shortcode-builder .schema-nerd-field-buttons .button.schema-nerd-field-button.is-active:focus {
+    background: #2271b1 !important;
+    border-color: #135e96 !important;
+    color: #fff !important;
+    font-weight: 600;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 0 0 1px #135e96 !important;
+    outline: 2px solid #72aee6;
+    outline-offset: 1px;
+}
+
+.schema-nerd-field-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.schema-nerd-field-button:not(:disabled):hover {
+    border-color: #2271b1;
+    color: #2271b1;
+}
+
+.schema-nerd-field-button.is-active,
+.schema-nerd-field-button.is-active:hover {
+    background: #2271b1;
+    border-color: #135e96;
+    color: #fff;
+    font-weight: 600;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+
+
+.schema-nerd-shortcode-builder-result {
+
+    display: grid;
+
+    grid-template-columns: minmax(240px, 1fr) minmax(280px, 1.2fr);
+
+    gap: 1.5rem;
+
+    padding-top: 1rem;
+
+    border-top: 1px solid #dcdcde;
+
+}
+
+
+
+.schema-nerd-loading,
+
+.schema-nerd-error {
+
+    margin: 0;
+
+    color: #646970;
+
+}
+
+
+
+.schema-nerd-error {
+
+    color: #b32d2e;
+
+}
+
+
+
+.schema-nerd-shortcodes-tab {
+
+    max-width: 960px;
+
+    margin-top: 1em;
+
+}
+
+
+
+.schema-nerd-shortcode-card {
+
+    display: grid;
+
+    grid-template-columns: minmax(240px, 1fr) minmax(280px, 1.2fr);
+
+    gap: 1.5rem;
+
+    padding: 1rem 0;
+
+    border-bottom: 1px solid #dcdcde;
+
+}
+
+
+
+.schema-nerd-shortcode-card:last-child {
+
+    border-bottom: 0;
+
+}
+
+
+
+.schema-nerd-shortcode-meta p {
+
+    margin: 0.35em 0 0.75em;
+
+    color: #646970;
+
+}
+
+
+
+.schema-nerd-shortcode-copy {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 0.75rem;
+
+    flex-wrap: wrap;
+
+}
+
+
+
+.schema-nerd-shortcode-tag {
+
+    display: inline-block;
+
+    padding: 0.35em 0.6em;
+
+    background: #f6f7f7;
+
+    border: 1px solid #dcdcde;
+
+    border-radius: 4px;
+
+}
+
+
+
+.schema-nerd-shortcode-preview {
+
+    padding: 1rem;
+
+    background: #fff;
+
+    border: 1px solid #dcdcde;
+
+    border-radius: 4px;
+
+}
+
+
+
+.schema-nerd-shortcode-preview-label {
+
+    display: block;
+
+    margin-bottom: 0.75rem;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    letter-spacing: 0.04em;
+
+    text-transform: uppercase;
+
+    color: #646970;
+
+}
+
+
+
+.schema-nerd-shortcode-preview .schema-nerd-locations,
+
+.schema-nerd-shortcode-preview .business-section {
+
+    margin: 0;
+
+}
+
+
+
+.schema-nerd-copy-shortcode.is-copied {
+
+    border-color: #00a32a;
+
+    color: #00a32a;
+
+}
+
+
+
+@media (max-width: 782px) {
+
+    .schema-nerd-shortcode-card,
+
+    .schema-nerd-shortcode-builder-result {
+
+        grid-template-columns: 1fr;
+
+    }
+
+}
+
+
+
+.schema-nerd-support-tab {
+
+    max-width: 960px;
+
+    margin-top: 1em;
+
+}
+
+
+
+.schema-nerd-support-intro {
+
+    max-width: 42rem;
+
+    color: #646970;
+
+}
+
+
+
+.schema-nerd-support-empty {
+
+    color: #646970;
+
+}
+
+
+
+.schema-nerd-articles-toolbar {
+
+    margin: 1.5rem 0 1rem;
+
+    padding: 1rem 1.25rem;
+
+    background: #fff;
+
+    border: 1px solid #dcdcde;
+
+    border-radius: 4px;
+
+}
+
+
+
+.schema-nerd-articles-search {
+
+    width: 100%;
+
+    max-width: 420px;
+
+    margin: 0;
+
+    padding: 0.5rem 0.75rem;
+
+    font-size: 14px;
+
+    line-height: 1.4;
+
+}
+
+
+
+.schema-nerd-articles-count {
+
+    margin: 0.75rem 0 0;
+
+    color: #646970;
+
+    font-size: 13px;
+
+}
+
+
+
+.schema-nerd-articles-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+
+    gap: 1rem;
+
+}
+
+
+
+.schema-nerd-article-card {
+
+    display: flex;
+
+    flex-direction: column;
+
+    background: #fff;
+
+    border: 1px solid #dcdcde;
+
+    border-radius: 4px;
+
+    overflow: hidden;
+
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+}
+
+
+
+.schema-nerd-article-card:hover {
+
+    border-color: #c3c4c7;
+
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+
+}
+
+
+
+.schema-nerd-article-card.is-hidden {
+
+    display: none;
+
+}
+
+
+
+.schema-nerd-article-card-body {
+
+    flex: 1;
+
+    padding: 1.25rem 1.25rem 0.75rem;
+
+}
+
+
+
+.schema-nerd-article-date {
+
+    display: block;
+
+    margin-bottom: 0.5rem;
+
+    font-size: 12px;
+
+    font-weight: 500;
+
+    letter-spacing: 0.02em;
+
+    text-transform: uppercase;
+
+    color: #646970;
+
+}
+
+
+
+.schema-nerd-article-title {
+
+    margin: 0 0 0.65rem;
+
+    font-size: 1.05rem;
+
+    line-height: 1.35;
+
+}
+
+
+
+.schema-nerd-article-title a {
+
+    color: #1d2327;
+
+    text-decoration: none;
+
+}
+
+
+
+.schema-nerd-article-title a:hover {
+
+    color: #2271b1;
+
+}
+
+
+
+.schema-nerd-article-excerpt {
+
+    margin: 0;
+
+    color: #50575e;
+
+    line-height: 1.55;
+
+    font-size: 13px;
+
+}
+
+
+
+.schema-nerd-article-card-footer {
+
+    padding: 0.75rem 1.25rem 1.25rem;
+
+}
+
+
+
+.schema-nerd-article-read-more {
+
+    width: 100%;
+
+    text-align: center;
+
+    justify-content: center;
+
+}
+
+
+
+.schema-nerd-articles-no-results {
+
+    margin-top: 1rem;
+
+    padding: 1rem 1.25rem;
+
+    color: #646970;
+
+    background: #f6f7f7;
+
+    border: 1px solid #dcdcde;
+
+    border-radius: 4px;
+
+}
+
+
+
+@media (max-width: 782px) {
+
+    .schema-nerd-articles-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+}
+
