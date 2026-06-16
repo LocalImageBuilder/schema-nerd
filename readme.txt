@@ -3,7 +3,7 @@ Contributors: localimage
 Tags: schema, seo, structured-data
 Requires at least: 6.0
 Tested up to: 7.0
-Stable tag: 1.0.5
+Stable tag: 1.0.6
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -20,7 +20,19 @@ Connect your WordPress site to Schema Nerd on schemanerd.app to output organizat
 2. Activate the plugin through the Plugins screen.
 3. Enter your Schema Nerd API key under Schema Nerd → Settings and select your organization.
 
+== Private GitHub updates ==
+
+This plugin checks **LocalImageBuilder/schema-nerd** on GitHub for new releases. Because the repository is private, save a read-only GitHub token under **Schema Nerd → Settings → Plugin updates**.
+
+Use a fine-grained or classic personal access token with **Contents: Read-only** access to the repository.
+
+Create releases by pushing a version tag (for example `v1.0.6`). GitHub Actions builds `schema-nerd.zip` and attaches it to the release automatically. WordPress sites with the token saved will show updates under Dashboard → Updates.
+
 == Changelog ==
+
+= 1.0.6 =
+* Add private GitHub Releases updater with token saved in plugin settings.
+* Add GitHub Actions workflow to publish release zip assets.
 
 = 1.0.5 =
 * Plugin Check and WordPress coding standards compliance (escaping, sanitization, i18n, ABSPATH guards).

@@ -3,7 +3,7 @@
 Plugin Name: Schema Nerd
 Plugin URI: https://localimageco.com/
 Description: API interface for Schema Nerd organizations
-Version: 1.0.5
+Version: 1.0.6
 Author: Local Image
 Author URI: https://localimageco.com/contact/
 Text Domain: schema-nerd
@@ -15,6 +15,8 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
+
+define( 'SCHEMA_NERD_PLUGIN_FILE', __FILE__ );
 
 // Let's Initialize Everything
 if ( file_exists( plugin_dir_path( __FILE__ ) . 'core-init.php' ) ) {
