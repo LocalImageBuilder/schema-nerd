@@ -103,15 +103,10 @@ add_action( 'admin_enqueue_scripts', 'schema_nerd_admin_assets' );
 
 
 
-function schema_nerd_settings_display() {
-
+function schema_nerd_get_settings_tabs() {
     $tabs_dir  = SN_CORE_INC . '/tabs/';
-
     $tab_files = glob( $tabs_dir . '*.php' );
-
-
-
-    $tabs = array( 'settings' => 'Settings' );
+    $tabs      = array( 'settings' => 'Settings' );
 
     foreach ( $tab_files as $file ) {
         $tab_name = basename( $file, '.php' );
@@ -125,6 +120,44 @@ function schema_nerd_settings_display() {
 
     $tabs['advanced'] = 'Advanced';
 
+    return $tabs;
+}
+
+function schema_nerd_is_saving_settings_tab( $tab ) {
+    // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Checked during options.php save after nonce verification in core.
+    if ( empty( $_POST['schema_nerd_active_tab'] ) ) {
+        return false;
+    }
+
+    return sanitize_key( wp_unslash( $_POST['schema_nerd_active_tab'] ) ) === $tab;
+}
+
+function schema_nerd_settings_active_tab_field( $tab ) {
+    echo '<input type="hidden" name="schema_nerd_active_tab" value="' . esc_attr( $tab ) . '">';
+}
+
+function schema_nerd_settings_redirect_with_tab( $location ) {
+    // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Tab slug is only used to rebuild the settings screen redirect URL.
+    if ( empty( $_POST['schema_nerd_active_tab'] ) ) {
+        return $location;
+    }
+
+    $tab = sanitize_key( wp_unslash( $_POST['schema_nerd_active_tab'] ) );
+
+    if ( $tab === '' || ! array_key_exists( $tab, schema_nerd_get_settings_tabs() ) || strpos( $location, 'page=schema-nerd' ) === false ) {
+        return $location;
+    }
+
+    return add_query_arg( 'tab', $tab, $location );
+}
+
+add_filter( 'wp_redirect', 'schema_nerd_settings_redirect_with_tab' );
+
+
+function schema_nerd_settings_display() {
+
+    $tabs_dir = SN_CORE_INC . '/tabs/';
+    $tabs     = schema_nerd_get_settings_tabs();
 
     // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only admin tab navigation.
     $current_tab = isset( $_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : 'settings';
@@ -171,44 +204,28 @@ function schema_nerd_settings_display() {
 
 
 
+            <?php if ( $current_tab === 'settings' ) : ?>
+
         <form method="post" action="options.php">
-
             <?php
-
-            if ( $current_tab === 'settings' ) {
-
                 settings_fields( 'schema_nerd_settings_group' );
-
+                schema_nerd_settings_active_tab_field( 'settings' );
                 do_settings_sections( 'schema-nerd' );
-
-
 
                 $api_key = get_option( 'schema_nerd_api_key' );
 
                 if ( ! empty( $api_key ) ) {
-
                     $organizations = schema_nerd_fetch_organizations( $api_key );
 
-
-
                     if ( ! is_wp_error( $organizations ) && ! empty( $organizations ) ) {
-
                         echo '<table class="form-table">';
-
                         echo '<tr valign="top">';
-
                         echo '<th scope="row">Organization (required)</th>';
-
                         echo '<td>';
-
-
 
                         $selected_org = get_option( 'schema_nerd_selected_org' );
 
-
-
                         echo '<select name="schema_nerd_selected_org" style="min-width:50%;">';
-
                         echo '<option value="">-- Select Organization --</option>';
 
                         foreach ( $organizations as $org ) {
@@ -220,32 +237,26 @@ function schema_nerd_settings_display() {
                         }
 
                         echo '</select>';
-
                         echo '</td>';
-
                         echo '</tr>';
-
                         echo '</table>';
-
                     } elseif ( is_wp_error( $organizations ) ) {
-
                         echo '<p>' . esc_html( $organizations->get_error_message() ) . '</p>';
-
                     } else {
-
                         echo '<p>No organizations found for this API key.</p>';
-
                     }
-
                 }
 
-
-
                 submit_button();
+            ?>
+        </form>
 
-            } elseif ( $current_tab === 'advanced' ) {
+            <?php elseif ( $current_tab === 'advanced' ) : ?>
 
-                settings_fields( 'schema_nerd_settings_group' );
+        <form method="post" action="options.php">
+            <?php
+                settings_fields( 'schema_nerd_advanced_group' );
+                schema_nerd_settings_active_tab_field( 'advanced' );
 
                 $tab_file = $tabs_dir . 'advanced.php';
 
@@ -256,26 +267,22 @@ function schema_nerd_settings_display() {
                 do_settings_sections( 'schema-nerd-advanced' );
 
                 submit_button();
+            ?>
+        </form>
 
-            } else {
+            <?php else : ?>
 
+                <?php
                 $tab_file = $tabs_dir . $current_tab . '.php';
 
                 if ( file_exists( $tab_file ) ) {
-
                     include $tab_file;
-
                 } else {
-
                     echo '<div class="notice notice-error"><p>Tab content not found.</p></div>';
-
                 }
+                ?>
 
-            }
-
-            ?>
-
-        </form>
+            <?php endif; ?>
 
     </div>
 
@@ -286,6 +293,9 @@ function schema_nerd_settings_display() {
 
 
 function schema_nerd_sanitize_selected_org( $value ) {
+    if ( ! schema_nerd_is_saving_settings_tab( 'settings' ) ) {
+        return get_option( 'schema_nerd_selected_org', '' );
+    }
 
     $value = sanitize_text_field( $value );
 
@@ -338,6 +348,9 @@ function schema_nerd_sanitize_selected_org( $value ) {
 
 
 function schema_nerd_sanitize_api_key( $value ) {
+    if ( ! schema_nerd_is_saving_settings_tab( 'settings' ) ) {
+        return get_option( 'schema_nerd_api_key', '' );
+    }
 
     $value = sanitize_text_field( $value );
 
@@ -353,6 +366,16 @@ function schema_nerd_sanitize_api_key( $value ) {
 
     return $value;
 
+}
+
+
+
+function schema_nerd_sanitize_hide_location_title( $value ) {
+    if ( ! schema_nerd_is_saving_settings_tab( 'advanced' ) ) {
+        return (bool) get_option( 'schema_nerd_hide_location_title', false );
+    }
+
+    return rest_sanitize_boolean( $value );
 }
 
 
@@ -386,11 +409,11 @@ function schema_nerd_register_settings() {
 
 
     register_setting(
-        'schema_nerd_settings_group',
+        'schema_nerd_advanced_group',
         'schema_nerd_hide_location_title',
         array(
             'type'              => 'boolean',
-            'sanitize_callback' => 'rest_sanitize_boolean',
+            'sanitize_callback' => 'schema_nerd_sanitize_hide_location_title',
             'default'           => false,
         )
     );
