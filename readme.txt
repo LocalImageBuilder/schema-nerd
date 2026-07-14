@@ -3,7 +3,7 @@ Contributors: localimage
 Tags: schema, structured data, local seo, json-ld, localbusiness
 Requires at least: 6.0
 Tested up to: 7.0
-Stable tag: 1.0.7
+Stable tag: 1.0.8
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -117,6 +117,10 @@ Yes. All user-facing strings are internationalized using the `schema-nerd` text 
 
 == Changelog ==
 
+= 1.0.8 =
+* Add automatic updates from public GitHub Releases (no token required).
+* Add release workflow that publishes schema-nerd.zip on version tags.
+
 = 1.0.7 =
 * Plugin updates are now delivered through the WordPress.org plugin directory.
 * Preparation for WordPress.org submission.
@@ -126,5 +130,5 @@ Yes. All user-facing strings are internationalized using the `schema-nerd` text 
 
 == Upgrade Notice ==
 
-= 1.0.7 =
-Updates are now delivered through the WordPress.org plugin directory. No action required.
+= 1.0.8 =
+Adds automatic plugin updates from GitHub Releases. Make sure the GitHub repository is public so updates work without a token.

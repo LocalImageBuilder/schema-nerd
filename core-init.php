@@ -63,3 +63,13 @@ if ( file_exists( SN_CORE_INC . 'widget-location-builder.php' ) ) {
 if ( file_exists( SN_CORE_INC . 'block-location-builder.php' ) ) {
 	require_once SN_CORE_INC . 'block-location-builder.php';
 }
+
+// Public GitHub release updates (no API token required when the repo is public).
+if ( is_admin() ) {
+	$schema_nerd_updater_file = dirname( __FILE__ ) . '/includes/class-schema-nerd-github-updater.php';
+
+	if ( file_exists( $schema_nerd_updater_file ) && defined( 'SCHEMA_NERD_PLUGIN_FILE' ) ) {
+		require_once $schema_nerd_updater_file;
+		new Schema_Nerd_Github_Updater( SCHEMA_NERD_PLUGIN_FILE );
+	}
+}
