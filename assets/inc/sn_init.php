@@ -292,9 +292,15 @@ function schema_nerd_display_selected_organization_from_api() {
     }
 
     if ( isset( $organization->schema ) ) {
+        $schema_output = $organization->schema;
+
+        if ( strpos( $schema_output, '<script' ) === false ) {
+            $schema_output = '<script type="application/ld+json">' . $schema_output . '</script>';
+        }
+
         echo '<!-- Schema_Nerd ID:' . esc_attr( $organization->id ) . '-' . esc_attr( $organization->title ) . ' -->';
-        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- JSON-LD schema from authenticated Schema Nerd API.
-        echo $organization->schema;
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- JSON-LD schema from authenticated Schema Nerd API, wrapped in script tag.
+        echo $schema_output;
         echo '<!-- End Schema_Nerd -->';
     } else {
         echo '<!-- Schema_Nerd: Selected organization has no schema data -->';

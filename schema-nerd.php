@@ -3,7 +3,7 @@
 Plugin Name: Schema Nerd
 Plugin URI: https://localimageco.com/
 Description: API interface for Schema Nerd organizations
-Version: 1.0.9
+Version: 1.1.0
 Author: Local Image
 Author URI: https://localimageco.com/contact/
 Text Domain: schema-nerd
