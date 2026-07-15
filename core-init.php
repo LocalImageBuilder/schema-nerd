@@ -33,7 +33,15 @@ add_action( 'wp_enqueue_scripts', 'schema_nerd_register_core_js' );
 function schema_nerd_enqueue_front_assets() {
 	wp_enqueue_style( 'sn-core' );
 	wp_enqueue_script( 'sn-core' );
-}    
+}
+
+function schema_nerd_defer_front_script( $tag, $handle ) {
+	if ( 'sn-core' === $handle && ! is_admin() && strpos( $tag, ' defer' ) === false ) {
+		$tag = str_replace( ' src', ' defer src', $tag );
+	}
+	return $tag;
+}
+add_filter( 'script_loader_tag', 'schema_nerd_defer_front_script', 10, 2 );    
 /*
 *
 *  Includes

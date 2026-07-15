@@ -3,7 +3,7 @@ Contributors: localimage
 Tags: schema, structured data, local seo, json-ld, localbusiness
 Requires at least: 6.0
 Tested up to: 7.0
-Stable tag: 1.1.1
+Stable tag: 1.1.2
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -117,6 +117,9 @@ Yes. All user-facing strings are internationalized using the `schema-nerd` text 
 
 == Changelog ==
 
+= 1.1.2 =
+* Fix: defer sn-core.js to prevent blocking Smush Pro lazy-load detector and other scripts.
+
 = 1.1.1 =
 * Lazy-load front-end CSS and JS only when shortcodes or widgets render output.
 * Scope admin redirect filter to admin pages only to prevent conflicts with other plugins.
@@ -139,6 +142,9 @@ Yes. All user-facing strings are internationalized using the `schema-nerd` text 
 * Initial release.
 
 == Upgrade Notice ==
+
+= 1.1.2 =
+Fixes a script loading conflict with WPMU Smush Pro that could hide images on the front end.
 
 = 1.1.1 =
 Reduces front-end footprint and hardens schema output to prevent conflicts with other plugins.
