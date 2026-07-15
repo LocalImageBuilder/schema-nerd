@@ -1,6 +1,20 @@
 jQuery(function ($) {
     'use strict';
 
+    if (new URLSearchParams(window.location.search).get('settings-updated') === 'true') {
+        $('.wrap > .notice, .wrap > .updated, .wrap > #setting-error-settings_updated').hide();
+
+        var $toast = $('<div class="schema-nerd-toast">Settings saved.</div>').appendTo('body');
+
+        setTimeout(function () {
+            $toast.addClass('is-fading');
+        }, 2000);
+
+        setTimeout(function () {
+            $toast.remove();
+        }, 2500);
+    }
+
     var $search = $('#schema-nerd-articles-search');
 
     if (!$search.length) {

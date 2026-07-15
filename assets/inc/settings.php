@@ -171,6 +171,7 @@ function schema_nerd_settings_display() {
     <div class="wrap">
 
         <h1>Schema Nerd Settings</h1>
+        <?php settings_errors(); ?>
 
 
 

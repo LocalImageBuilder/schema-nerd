@@ -523,3 +523,24 @@
 
 }
 
+.schema-nerd-toast {
+    position: fixed;
+    top: 46px;
+    right: 20px;
+    z-index: 100000;
+    padding: 10px 18px;
+    background: #00a32a;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    opacity: 1;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+}
+
+.schema-nerd-toast.is-fading {
+    opacity: 0;
+}
+
