@@ -2,7 +2,7 @@
 
 API interface for Schema Nerd organizations.
 
-**Version:** 1.2.0
+**Version:** 1.2.1
 
 WordPress plugin readme: see [readme.txt](readme.txt).
 
@@ -14,8 +14,8 @@ Updates come from **public** GitHub Releases on `LocalImageBuilder/schema-nerd`.
 2. Tag a release:
 
 ```bash
-git tag v1.2.0
-git push origin v1.2.0
+git tag v1.2.1
+git push origin v1.2.1
 ```
 
 3. GitHub Actions attaches `schema-nerd.zip` to the release.

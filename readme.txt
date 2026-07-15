@@ -3,7 +3,7 @@ Contributors: localimage
 Tags: schema, structured data, local seo, json-ld, localbusiness
 Requires at least: 6.0
 Tested up to: 7.0
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -117,6 +117,9 @@ Yes. All user-facing strings are internationalized using the `schema-nerd` text 
 
 == Changelog ==
 
+= 1.2.1 =
+* Fix: organization dropdown now returns up to 100 organizations instead of the default 10.
+
 = 1.2.0 =
 * Performance: cache API responses in a transient (12-hour TTL) instead of calling schemanerd.app on every page load.
 * Cache clears automatically when the API key or organization is changed in settings.
@@ -147,6 +150,9 @@ Yes. All user-facing strings are internationalized using the `schema-nerd` text 
 * Initial release.
 
 == Upgrade Notice ==
+
+= 1.2.1 =
+Fixes missing organizations in the settings dropdown for accounts with more than 10 organizations.
 
 = 1.2.0 =
 Major performance improvement: schema data is now cached locally instead of fetching from the API on every page load. Strongly recommended.

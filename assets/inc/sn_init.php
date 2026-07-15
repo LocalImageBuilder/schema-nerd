@@ -151,7 +151,8 @@ function schema_nerd_fetch_organizations( $api_key ) {
         return new WP_Error( 'missing_api_key', 'API key is missing or empty' );
     }
 
-    $account = schema_nerd_request_authenticated_json( SN_ACCOUNT_URL, $api_key );
+    $account_url = add_query_arg( 'per_page', 100, SN_ACCOUNT_URL );
+    $account     = schema_nerd_request_authenticated_json( $account_url, $api_key );
 
     if ( ! is_wp_error( $account ) ) {
         $organizations = schema_nerd_normalize_organization_list( $account );
@@ -163,7 +164,8 @@ function schema_nerd_fetch_organizations( $api_key ) {
         return new WP_Error( 'empty_data', 'No organizations found for this API key.' );
     }
 
-    $organization_data = schema_nerd_request_authenticated_json( SN_API_URL, $api_key );
+    $org_url           = add_query_arg( 'per_page', 100, SN_API_URL );
+    $organization_data = schema_nerd_request_authenticated_json( $org_url, $api_key );
 
     if ( is_wp_error( $organization_data ) ) {
         if ( $account->get_error_code() === 'invalid_api_key' ) {
