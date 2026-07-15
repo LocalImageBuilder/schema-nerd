@@ -278,13 +278,41 @@ function schema_nerd_fetch_selected_organization_from_api() {
     return $organization;
 }
 
-function schema_nerd_display_selected_organization_from_api() {
-    $api_key = get_option( 'schema_nerd_api_key' );
-    if ( empty( $api_key ) || empty( get_option( 'schema_nerd_selected_org' ) ) ) {
-        return;
+function schema_nerd_get_cached_organization() {
+    $api_key      = get_option( 'schema_nerd_api_key' );
+    $selected_org = get_option( 'schema_nerd_selected_org' );
+
+    if ( empty( $api_key ) || empty( $selected_org ) ) {
+        return null;
     }
 
-    $organization = schema_nerd_fetch_selected_organization_from_api();
+    $cache_key    = 'schema_nerd_org_' . md5( $api_key . $selected_org );
+    $organization = get_transient( $cache_key );
+
+    if ( false === $organization ) {
+        $organization = schema_nerd_fetch_selected_organization_from_api();
+
+        if ( ! is_wp_error( $organization ) && $organization ) {
+            set_transient( $cache_key, $organization, 12 * HOUR_IN_SECONDS );
+        }
+    }
+
+    return $organization;
+}
+
+function schema_nerd_clear_schema_cache() {
+    $api_key      = get_option( 'schema_nerd_api_key' );
+    $selected_org = get_option( 'schema_nerd_selected_org' );
+
+    if ( ! empty( $api_key ) && ! empty( $selected_org ) ) {
+        delete_transient( 'schema_nerd_org_' . md5( $api_key . $selected_org ) );
+    }
+}
+add_action( 'update_option_schema_nerd_api_key', 'schema_nerd_clear_schema_cache' );
+add_action( 'update_option_schema_nerd_selected_org', 'schema_nerd_clear_schema_cache' );
+
+function schema_nerd_display_selected_organization_from_api() {
+    $organization = schema_nerd_get_cached_organization();
 
     if ( is_wp_error( $organization ) ) {
         echo '<!-- Schema_Nerd: Organization schema not displayed due to error (check logs) -->';
@@ -292,7 +320,6 @@ function schema_nerd_display_selected_organization_from_api() {
     }
 
     if ( ! $organization ) {
-        echo '<!-- Schema_Nerd: No organization data available -->';
         return;
     }
 
@@ -323,8 +350,8 @@ function schema_nerd_get_organization_schema() {
     static $schema = null;
 
     if ( is_null( $schema ) ) {
-        $organization = schema_nerd_fetch_selected_organization_from_api();
-        $schema       = ( ! is_wp_error( $organization ) && isset( $organization->schema ) )
+        $organization = schema_nerd_get_cached_organization();
+        $schema       = ( ! is_wp_error( $organization ) && $organization && isset( $organization->schema ) )
             ? $organization->schema
             : false;
     }

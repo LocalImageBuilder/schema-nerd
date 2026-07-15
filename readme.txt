@@ -3,7 +3,7 @@ Contributors: localimage
 Tags: schema, structured data, local seo, json-ld, localbusiness
 Requires at least: 6.0
 Tested up to: 7.0
-Stable tag: 1.1.2
+Stable tag: 1.2.0
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -117,6 +117,11 @@ Yes. All user-facing strings are internationalized using the `schema-nerd` text 
 
 == Changelog ==
 
+= 1.2.0 =
+* Performance: cache API responses in a transient (12-hour TTL) instead of calling schemanerd.app on every page load.
+* Cache clears automatically when the API key or organization is changed in settings.
+* Eliminates blocking HTTP requests from the front-end render path.
+
 = 1.1.2 =
 * Fix: defer sn-core.js to prevent blocking Smush Pro lazy-load detector and other scripts.
 
@@ -142,6 +147,9 @@ Yes. All user-facing strings are internationalized using the `schema-nerd` text 
 * Initial release.
 
 == Upgrade Notice ==
+
+= 1.2.0 =
+Major performance improvement: schema data is now cached locally instead of fetching from the API on every page load. Strongly recommended.
 
 = 1.1.2 =
 Fixes a script loading conflict with WPMU Smush Pro that could hide images on the front end.
