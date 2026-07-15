@@ -279,6 +279,11 @@ function schema_nerd_fetch_selected_organization_from_api() {
 }
 
 function schema_nerd_display_selected_organization_from_api() {
+    $api_key = get_option( 'schema_nerd_api_key' );
+    if ( empty( $api_key ) || empty( get_option( 'schema_nerd_selected_org' ) ) ) {
+        return;
+    }
+
     $organization = schema_nerd_fetch_selected_organization_from_api();
 
     if ( is_wp_error( $organization ) ) {
@@ -291,20 +296,26 @@ function schema_nerd_display_selected_organization_from_api() {
         return;
     }
 
-    if ( isset( $organization->schema ) ) {
-        $schema_output = $organization->schema;
-
-        if ( strpos( $schema_output, '<script' ) === false ) {
-            $schema_output = '<script type="application/ld+json">' . $schema_output . '</script>';
-        }
-
-        echo '<!-- Schema_Nerd ID:' . esc_attr( $organization->id ) . '-' . esc_attr( $organization->title ) . ' -->';
-        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- JSON-LD schema from authenticated Schema Nerd API, wrapped in script tag.
-        echo $schema_output;
-        echo '<!-- End Schema_Nerd -->';
-    } else {
+    if ( ! isset( $organization->schema ) || ! is_string( $organization->schema ) || trim( $organization->schema ) === '' ) {
         echo '<!-- Schema_Nerd: Selected organization has no schema data -->';
+        return;
     }
+
+    $schema_output = trim( $organization->schema );
+
+    if ( strpos( $schema_output, '<script' ) === false ) {
+        $decoded = json_decode( $schema_output );
+        if ( null === $decoded ) {
+            echo '<!-- Schema_Nerd: Schema data could not be parsed -->';
+            return;
+        }
+        $schema_output = '<script type="application/ld+json">' . wp_json_encode( $decoded, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ) . '</script>';
+    }
+
+    echo '<!-- Schema_Nerd ID:' . esc_attr( $organization->id ) . '-' . esc_attr( $organization->title ) . ' -->';
+    // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- JSON-LD schema from authenticated Schema Nerd API, wrapped in script tag.
+    echo $schema_output;
+    echo "\n<!-- End Schema_Nerd -->";
 }
 add_action( 'wp_head', 'schema_nerd_display_selected_organization_from_api' );
 

@@ -155,6 +155,12 @@ function schema_nerd_format_email_link( $email, $location = null, $index = 0 ) {
     return '<a class="' . $class . '" href="mailto:' . esc_attr( $email ) . '">' . esc_html( $email ) . '</a>';
 }
 
+function schema_nerd_maybe_enqueue_assets() {
+    if ( function_exists( 'schema_nerd_enqueue_front_assets' ) ) {
+        schema_nerd_enqueue_front_assets();
+    }
+}
+
 function schema_nerd_render_location_field( $location, $field, $index = null ) {
     if ( null === $index ) {
         $index = schema_nerd_get_location_index( $location );
@@ -445,6 +451,7 @@ function schema_nerd_render_locations_list( $field ) {
         return '';
     }
 
+    schema_nerd_maybe_enqueue_assets();
     $output = '<div class="schema-nerd-locations schema-nerd-locations-' . esc_attr( $field ) . ' schema-nerd-locations-list">';
 
     foreach ( $locations as $index => $location ) {
@@ -583,6 +590,7 @@ function schema_nerd_phone_shortcode() {
         return '';
     }
 
+    schema_nerd_maybe_enqueue_assets();
     return schema_nerd_render_location_field( $business, 'phone', 0 );
 }
 add_shortcode( 'schema_nerd_phone', 'schema_nerd_phone_shortcode' );
@@ -594,6 +602,7 @@ function schema_nerd_hours_shortcode() {
         return '';
     }
 
+    schema_nerd_maybe_enqueue_assets();
     return schema_nerd_render_location_field( $business, 'hours', 0 );
 }
 add_shortcode( 'schema_nerd_hours', 'schema_nerd_hours_shortcode' );
@@ -605,6 +614,7 @@ function schema_nerd_fax_shortcode() {
         return '';
     }
 
+    schema_nerd_maybe_enqueue_assets();
     $index = 0;
     return '<div class="' . schema_nerd_get_location_classes( $business, $index, 'fax', array( 'business-section', 'fax-section' ) ) . '"><p class="' . schema_nerd_get_location_classes( $business, $index, 'fax-text' ) . '">' . esc_html( $business['address']['faxNumber'] ) . '</p></div>';
 }
@@ -618,6 +628,7 @@ function schema_nerd_address_shortcode() {
         return '';
     }
 
+    schema_nerd_maybe_enqueue_assets();
     return $address;
 }
 add_shortcode( 'schema_nerd_address', 'schema_nerd_address_shortcode' );
@@ -667,6 +678,7 @@ function schema_nerd_location_shortcode( $atts ) {
         return '';
     }
 
+    schema_nerd_maybe_enqueue_assets();
     $index   = schema_nerd_get_location_index( $location );
     $name    = schema_nerd_get_location_name( $location );
     $id_attr = schema_nerd_get_location_id_attr( $location, $index );

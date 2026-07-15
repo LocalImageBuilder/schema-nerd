@@ -21,19 +21,19 @@ define('SN_ACCOUNT_URL', 'https://schemanerd.app/wp-json/sn/v2/account');
 *
 */
 function schema_nerd_register_core_css() {
-wp_enqueue_style('sn-core', SN_CORE_CSS . 'sn-core.css',null,time(),'all');
-};
-add_action( 'wp_enqueue_scripts', 'schema_nerd_register_core_css' );    
-/*
-*
-*  Register JS/Jquery Ready
-*
-*/
+	wp_register_style( 'sn-core', SN_CORE_CSS . 'sn-core.css', array(), filemtime( dirname( __FILE__ ) . '/assets/css/sn-core.css' ) );
+}
+add_action( 'wp_enqueue_scripts', 'schema_nerd_register_core_css' );
+
 function schema_nerd_register_core_js() {
-// Register Core Plugin JS	
-wp_enqueue_script('sn-core', SN_CORE_JS . 'sn-core.js','jquery',time(),true);
-};
-add_action( 'wp_enqueue_scripts', 'schema_nerd_register_core_js' );    
+	wp_register_script( 'sn-core', SN_CORE_JS . 'sn-core.js', array( 'jquery' ), filemtime( dirname( __FILE__ ) . '/assets/js/sn-core.js' ), true );
+}
+add_action( 'wp_enqueue_scripts', 'schema_nerd_register_core_js' );
+
+function schema_nerd_enqueue_front_assets() {
+	wp_enqueue_style( 'sn-core' );
+	wp_enqueue_script( 'sn-core' );
+}    
 /*
 *
 *  Includes

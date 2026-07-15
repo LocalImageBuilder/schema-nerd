@@ -3,7 +3,7 @@ Contributors: localimage
 Tags: schema, structured data, local seo, json-ld, localbusiness
 Requires at least: 6.0
 Tested up to: 7.0
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -117,6 +117,11 @@ Yes. All user-facing strings are internationalized using the `schema-nerd` text 
 
 == Changelog ==
 
+= 1.1.1 =
+* Lazy-load front-end CSS and JS only when shortcodes or widgets render output.
+* Scope admin redirect filter to admin pages only to prevent conflicts with other plugins.
+* Harden schema output: validate JSON before rendering, skip silently when unconfigured.
+
 = 1.1.0 =
 * Fix: wrap JSON-LD schema output in script tags when the API returns raw JSON, preventing broken page layouts.
 * Add settings-saved toast notification that briefly confirms saves and fades out.
@@ -134,6 +139,9 @@ Yes. All user-facing strings are internationalized using the `schema-nerd` text 
 * Initial release.
 
 == Upgrade Notice ==
+
+= 1.1.1 =
+Reduces front-end footprint and hardens schema output to prevent conflicts with other plugins.
 
 = 1.1.0 =
 Fixes a bug where raw JSON-LD schema could break the front-end page layout. Update recommended.

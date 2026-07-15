@@ -151,7 +151,9 @@ function schema_nerd_settings_redirect_with_tab( $location ) {
     return add_query_arg( 'tab', $tab, $location );
 }
 
-add_filter( 'wp_redirect', 'schema_nerd_settings_redirect_with_tab' );
+if ( is_admin() ) {
+    add_filter( 'wp_redirect', 'schema_nerd_settings_redirect_with_tab' );
+}
 
 
 function schema_nerd_settings_display() {
